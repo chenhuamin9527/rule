@@ -158,6 +158,8 @@ proxy-groups:
   - {name: 🌐 全部节点, type: select, include-all: true}
 rules:
   - RULE-SET,private_domain,🟢 直连
+  - DOMAIN-SUFFIX,xn--ngstr-lra8j.com,DIRECT
+  - DOMAIN-SUFFIX,googleapis.cn,DIRECT
   - RULE-SET,apple_domain,🍎 Apple
   - RULE-SET,proxylite,🚀 节点选择
   - RULE-SET,ai,🤖 ChatGPT
