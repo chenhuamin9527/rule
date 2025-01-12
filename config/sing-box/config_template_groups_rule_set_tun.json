@@ -196,7 +196,7 @@
         },
         {
           "rule_set": ["geoip-cn", "geosite-cn"],
-          "outbound": "China"
+          "outbound": "🎯 全球直连"
         }
       ],
       "rule_set": [
