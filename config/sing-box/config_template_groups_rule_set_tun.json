@@ -192,7 +192,7 @@
         },
         {
           "rule_set": "geosite-geolocation-!cn",
-          "outbound": "Global"
+          "outbound": "GLOBAL"
         },
         {
           "rule_set": ["geoip-cn", "geosite-cn"],
