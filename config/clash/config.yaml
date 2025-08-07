@@ -26,8 +26,7 @@ allow-lan: true
 unified-delay: true
 tcp-concurrent: true
   
-geodata-mode: false
-# geodata-loader: standard/memconservative
+geodata-mode: true
 geodata-loader: standard
 geo-auto-update: true
 geo-update-interval: 48
@@ -40,8 +39,6 @@ geox-url:
 # 控制面板
 external-controller: 0.0.0.0:9090
 secret: ""
-external-ui: ui
-external-ui-url: "https://ghp.ci/https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip"
 
 # 匹配进程 always/strict/off
 find-process-mode: strict
@@ -53,24 +50,6 @@ keep-alive-interval: 30
 profile:
   store-selected: true
   store-fake-ip: true
-  
-# 流量嗅探
-sniffer:
-  enable: true
-  sniff:
-    HTTP:
-      ports: [80, 8080-8880]
-      override-destination: true
-    TLS:
-      ports: [443, 8443]
-    QUIC:
-      ports: [443, 8443]
-  force-domain:
-    - +.v2ex.com
-  skip-domain:
-    - "dlg.io.mi.com"
-    - "+.push.apple.com"
-    - "+.apple.com"
     
 # 代理模式
 tun:
@@ -103,22 +82,23 @@ dns:
     - geosite:cn
     - "+.xn--ngstr-lra8j.com"
     - "+.googleapis.cn"
+    - "+.market.xiaomi.com"
   default-nameserver:
-    - 223.5.5.5
-    - 119.29.29.29
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
   proxy-server-nameserver:
-    - 223.5.5.5
-    - 119.29.29.29
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
   nameserver:
-    - 223.5.5.5
-    - 119.29.29.29
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
   nameserver-policy:
     "rule-set:private_domain,cn_domain":
-    - 223.5.5.5
-    - 119.29.29.29
+      - https://doh.pub/dns-query
+      - https://dns.alidns.com/dns-query
     "rule-set:geolocation-!cn":
-      - "https://dns.cloudflare.com/dns-query"
-      - "https://dns.google/dns-query"
+      - https://doh.pub/dns-query
+      - https://dns.alidns.com/dns-query
  
    
 proxies:
@@ -165,6 +145,8 @@ rules:
   - RULE-SET,private_domain,🟢 直连
   - DOMAIN-SUFFIX,xn--ngstr-lra8j.com,DIRECT
   - DOMAIN-SUFFIX,googleapis.cn,DIRECT
+  - DOMAIN-SUFFIX,dns.alidns.com,DIRECT
+  - RULE-SET,anti_ad_domain,REJECT
   - RULE-SET,apple_domain,🍎 Apple
   - RULE-SET,ai,🤖 ChatGPT
   - RULE-SET,github_domain,👨🏿‍💻 GitHub
@@ -204,6 +186,7 @@ rule-providers:
   disney_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/disney.mrs"}
   spotify_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo-lite/geosite/spotify.mrs"}
   deepseek_domain: { <<: *domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/deepseek.mrs"}
+  anti_ad_domain: { <<: *domain, url: "https://raw.githubusercontent.com/privacy-protection-tools/anti-ad.github.io/master/docs/mihomo.mrs"}
   
   ai: { <<: *ip, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/ai.mrs"}
   cn_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs"}
